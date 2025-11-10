@@ -1,8 +1,9 @@
-###  DATE: 23-09-2025
+###  DATE: 23/10/2025
 
-###  NAME: senthil kumaran c
-###  ROLL NO : 212223230103
-###  DEPARTMENT: BTECH IT
+###  NAME: SENTHIL KUMARAN C
+###  ROLL NO :212223220103
+###  DEPARTMENT: B.Tech AIDS
+
 
 # EXPERIMENT--04-INTERUPT-GENRATION-USING-SENSOR-AND-VISUALIZING-USING-SERIAL-MONITOR
 
@@ -139,13 +140,13 @@ The diagram below shows how the GPIO pins are connected to the 16 interrupt line
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include"stdbool.h"
-#include "stdio.h"
+#include<stdio.h>
 bool IRSENSOR;
 void IRPAIR();
 static void MX_GPIO_Init(void);
-//#if defined(__ICCARM__) || defined(__ARMCC_VERSION)
-//#define PUTCHAR_PROTOTYPE int fputc(int ch,FILE *f)
-#if defined(__GNUC__)
+#if defined(__ICCARM__) || defined(__ARMCC_VERSION)
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#elif defined(__GNUC__)
 #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
 #endif
 
@@ -161,6 +162,7 @@ static void MX_GPIO_Init(void);
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -194,6 +196,7 @@ static void MX_USART2_UART_Init(void);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -224,34 +227,34 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-    {
-  	  IRPAIR();
-    }
-    /* USER CODE END 3 */
-  }
-  void IRPAIR()
   {
-  IRSENSOR = HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4);
-  if(IRSENSOR==0)
-  {
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
-  	printf("Obstacle Detected\n");
-  HAL_Delay(1000);
-  //HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
-  //HAL_Delay(1000);
+	  IRPAIR();
   }
-  else
-  {
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
-  	printf("Obstacle Not Detected\n");
-  HAL_Delay(1000);
-  }
-  }
-  PUTCHAR_PROTOTYPE
-  {
-  HAL_UART_Transmit(&huart2,(uint8_t*)&ch,1,0xFFFF);
+  /* USER CODE END 3 */
+}
+void IRPAIR()
+{
+IRSENSOR = HAL_GPIO_ReadPin(GPIOB,GPIO_PIN_4);
+if(IRSENSOR==0)
+
+{
+HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
+printf("Obstacle Detected\n");
+HAL_Delay(1000);
+}
+else
+{
+HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+printf("Obstacle Not Detected\n");
+HAL_Delay(1000);
+}
+}
+
+PUTCHAR_PROTOTYPE
+{
+  HAL_UART_Transmit(&huart2, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
   return ch;
-  }
+}
 
 /**
   * @brief System Clock Configuration
@@ -265,7 +268,8 @@ void SystemClock_Config(void)
   /** Configure the main internal regulator output voltage
   */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
-  /** Initializes the CPU, AHB and APB busses clocks
+
+  /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
@@ -276,6 +280,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Configure the SYSCLKSource, HCLK, PCLK1 and PCLK2 clocks dividers
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK3|RCC_CLOCKTYPE_HCLK
@@ -349,6 +354,9 @@ static void MX_USART2_UART_Init(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
+  /* USER CODE BEGIN MX_GPIO_Init_1 */
+
+  /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOB_CLK_ENABLE();
@@ -370,6 +378,9 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /* USER CODE BEGIN MX_GPIO_Init_2 */
+
+  /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
@@ -390,8 +401,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
@@ -408,28 +418,25 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif /* USE_FULL_ASSERT */
 
-
 ```
 
 
 
 ## Output screen shots of serial port utility   :
-<img width="1157" height="527" alt="image" src="https://github.com/user-attachments/assets/cf65718e-28dc-46a0-b66c-8a699caf353d" />
+<img width="1918" height="1017" alt="Screenshot 2025-10-10 144210" src="https://github.com/user-attachments/assets/6c4bcf8f-b0fb-4f85-b422-98a9b77a421a" />
 
-
- 
  
  ## Circuit board :
- BEFORE OBSTACLE DETECTED:
- <img width="2416" height="2584" alt="image" src="https://github.com/user-attachments/assets/e2e06247-d53c-4aa8-a44f-307880fc2db0" />
+ ## Obstacle Detected
+ 
+![WhatsApp Image 2025-10-10 at 18 54 10_b0a96c0d](https://github.com/user-attachments/assets/923edfa7-4aff-4079-a93f-6fdf92a50a5a)
 
+ ## Obstacle not detected
 
-AFTER OBSTACLE IS DETECTED:
-<img width="1274" height="1600" alt="image" src="https://github.com/user-attachments/assets/013db43e-a588-43b5-b77f-4478bc993435" />
+ <img width="372" height="431" alt="image" src="https://github.com/user-attachments/assets/322e5e01-d1f6-446f-bfe1-d892f5839758" />
 
-
-
-
-  
+ 
+ 
+ 
 ## Result :
 Interfacing a  IR SENSOR and interrupt is generated using external interrupt mode , visualized on serial port 
